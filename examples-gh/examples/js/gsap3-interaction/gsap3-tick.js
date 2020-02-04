@@ -1,14 +1,26 @@
 const app = new PIXI.Application({
-    width: 400, height: 300, backgroundColor: 0x1099bb, resolution: window.devicePixelRatio || 1,
+    width: 800,
+    height: 600,
+    backgroundColor: 0x1099bb,
 });
+
 document.body.appendChild(app.view);
+
+// We stop Pixi ticker using stop() function because autoStart = false does NOT stop the shared ticker:
+// doc: http://pixijs.download/release/docs/PIXI.Application.html
+app.ticker.stop();
+
+// Now, we use 'tick' from gsap
+gsap.ticker.add(() => {
+    app.ticker.update();
+});
 
 const container = new PIXI.Container();
 
 app.stage.addChild(container);
 
 // Create a new texture
-const texture = PIXI.Texture.from('explorer.png');
+const texture = PIXI.Texture.from('examples/assets/bunny.png');
 
 // Create a 5x5 grid of bunnies
 for (let i = 0; i < 25; i++) {
