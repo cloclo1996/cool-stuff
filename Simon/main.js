@@ -1,35 +1,39 @@
 const app = new PIXI.Application();
 document.body.appendChild(app.view);
 
-const bg = PIXI.Sprite.from('images/blob.png');
-bg.width = app.screen.width;
-bg.height = app.screen.height;
-app.stage.addChild(bg);
+// Inner radius of the circle
+const radius = 100;
 
-const littleDudes = PIXI.Sprite.from('images/cat.png');
-littleDudes.x = (app.screen.width / 2) - 315;
-littleDudes.y = 200;
-app.stage.addChild(littleDudes);
+// The blur amount
+const blurSize = 32;
 
-const littleRobot = PIXI.Sprite.from('cat.jpg');
-littleRobot.x = (app.screen.width / 2) - 200;
-littleRobot.y = 100;
-app.stage.addChild(littleRobot);
+app.loader.add('grass', 'examples/assets/bg_grass.jpg');
+app.loader.load(setup);
 
-const blurFilter1 = new PIXI.filters.BlurFilter();
-const blurFilter2 = new PIXI.filters.BlurFilter();
+function setup(loader, resources) {
+    const background = new PIXI.Sprite(resources.grass.texture);
+    app.stage.addChild(background);
+    background.width = app.screen.width;
+    background.height = app.screen.height;
 
-littleDudes.filters = [blurFilter1];
-littleRobot.filters = [blurFilter2];
+    const circle = new PIXI.Graphics()
+        .beginFill(0xFF0000)
+        .drawCircle(radius + blurSize, radius + blurSize, radius)
+        .endFill();
+    circle.filters = [new PIXI.filters.BlurFilter(blurSize)];
 
-let count = 0;
+    const bounds = new PIXI.Rectangle(0, 0, (radius + blurSize) * 2, (radius + blurSize) * 2);
+    const texture = app.renderer.generateTexture(circle, PIXI.SCALE_MODES.NEAREST, 1, bounds);
+    const focus = new PIXI.Sprite(texture);
 
-app.ticker.add(() => {
-    count += 0.005;
+    app.stage.addChild(focus);
+    background.mask = focus;
 
-    const blurAmount = Math.cos(count);
-    const blurAmount2 = Math.sin(count);
+    app.stage.interactive = true;
+    app.stage.on('mousemove', pointerMove);
 
-    blurFilter1.blur = 20 * (blurAmount);
-    blurFilter2.blur = 20 * (blurAmount2);
-});
+    function pointerMove(event) {
+        focus.position.x = event.data.global.x - focus.width / 2;
+        focus.position.y = event.data.global.y - focus.height / 2;
+    }
+}
