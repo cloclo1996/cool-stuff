@@ -1,35 +1,26 @@
-const app = new PIXI.Application({
-    width: 800, height: 600, backgroundColor: 0x1099bb, resolution: window.devicePixelRatio || 1,
-});
+const app = new PIXI.Application();
 document.body.appendChild(app.view);
 
-const container = new PIXI.Container();
+app.stage.position.set(400, 300);
 
-app.stage.addChild(container);
+const outlineFilterBlue = new PIXI.filters.OutlineFilter(2, 0x99ff99);
+const outlineFilterRed = new PIXI.filters.GlowFilter(15, 2, 1, 0xff9999, 0.5);
 
-// Create a new texture
-const texture = PIXI.Texture.from('examples/assets/bunny.png');
-
-// Create a 5x5 grid of bunnies
-for (let i = 0; i < 25; i++) {
-    const bunny = new PIXI.Sprite(texture);
-    bunny.anchor.set(0.5);
-    bunny.x = (i % 5) * 40;
-    bunny.y = Math.floor(i / 5) * 40;
-    container.addChild(bunny);
+function filterOn() {
+    this.filters = [outlineFilterRed];
 }
 
-// Move container to the center
-container.x = app.screen.width / 2;
-container.y = app.screen.height / 2;
+function filterOff() {
+    this.filters = [outlineFilterBlue];
+}
 
-// Center bunny sprite in local container coordinates
-container.pivot.x = container.width / 2;
-container.pivot.y = container.height / 2;
-
-// Listen for animate update
-app.ticker.add((delta) => {
-    // rotate the container!
-    // use delta to create frame-independent transform
-    container.rotation -= 0.01 * delta;
-});
+for (let i = 0; i < 20; i++) {
+    const bunny = PIXI.Sprite.from('images/cat.png');
+    bunny.interactive = true;
+    bunny.position.set((Math.random() * 2 - 1) * 300 | 0, (Math.random() * 2 - 1) * 200 | 0);
+    bunny.scale.x = (Math.random() * 3 | 0 * 0.1) + 1;
+    bunny.on('pointerover', filterOn)
+        .on('pointerout', filterOff);
+    filterOff.call(bunny);
+    app.stage.addChild(bunny);
+}
