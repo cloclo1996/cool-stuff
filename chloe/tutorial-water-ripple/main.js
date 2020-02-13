@@ -15,13 +15,16 @@ function initPixi(){
     app.stage.addChild(displacementSprite);
     app.stage.filters = [displacementFilter];
     app.renderer.view.style.transform = 'scale(1.02)';
-    displacementSprite.scale.x = 5;
-    displacementSprite.scale.y = 5;
+    displacementSprite.scale.x = 6;
+    displacementSprite.scale.y = 6;
     animate();
     }
     function animate() {
-      displacementSprite.x += 10;
-      displacementSprite.y += 4;
+      displacementSprite.x += 15;
+      displacementSprite.y += 6;
+
+      //Animate. Keeps updating displacementSprite's position.
+      //If a displacement map is too small, you will see the borders of the image being repeated on screen
       requestAnimationFrame(animate);
     }
     initPixi();
