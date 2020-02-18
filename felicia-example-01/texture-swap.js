@@ -38,3 +38,4 @@ app.ticker.add(() => {
     // just for fun, let's rotate mr rabbit a little
     dude.rotation += 0.1;
 });
+
