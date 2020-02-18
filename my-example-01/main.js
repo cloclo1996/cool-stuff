@@ -1,129 +1,40 @@
-/*
-const app = new PIXI.Application({
-    width: 400, height: 300, backgroundColor: 0x1099bb, resolution: window.devicePixelRatio || 1,
-});
+const app = new PIXI.Application();
 document.body.appendChild(app.view);
 
-const container = new PIXI.Container();
+let bol = false;
 
-app.stage.addChild(container);
+// create a texture from an image path
+const texture = PIXI.Texture.from('images/cat.png');
 
-// Create a new texture
-const texture = PIXI.Texture.from('explorer.png');
+// create a second texture
+const secondTexture = PIXI.Texture.from('images/blob.png');
 
-// Create a 5x5 grid of bunnies
-for (let i = 0; i < 25; i++) {
-    const bunny = new PIXI.Sprite(texture);
-    bunny.anchor.set(0.5);
-    bunny.x = (i % 5) * 40;
-    bunny.y = Math.floor(i / 5) * 40;
-    container.addChild(bunny);
-}
+// create a new Sprite using the texture
+const dude = new PIXI.Sprite(texture);
 
-// Move container to the center
-container.x = app.screen.width / 2;
-container.y = app.screen.height / 2;
+// center the sprites anchor point
+dude.anchor.set(0.5);
 
-// Center bunny sprite in local container coordinates
-container.pivot.x = container.width / 2;
-container.pivot.y = container.height / 2;
+// move the sprite to the center of the screen
+dude.x = app.screen.width / 2;
+dude.y = app.screen.height / 2;
 
-// Listen for animate update
-app.ticker.add((delta) => {
-    // rotate the container!
-    // use delta to create frame-independent transform
-    container.rotation -= 0.01 * delta;
+app.stage.addChild(dude);
+
+// make the sprite interactive
+dude.interactive = true;
+dude.buttonMode = true;
+
+dude.on('pointertap', () => {
+    bol = !bol;
+    if (bol) {
+        dude.texture = secondTexture;
+    } else {
+        dude.texture = texture;
+    }
 });
-*/
 
-
-//Aliases
-let Application = PIXI.Application,
-    Container = PIXI.Container,
-    loader = PIXI.loader,
-    resources = PIXI.loader.resources,
-    Graphics = PIXI.Graphics,
-    TextureCache = PIXI.utils.TextureCache,
-    Sprite = PIXI.Sprite;
-
-//Create a Pixi Application
-let app = new Application({ 
-    width: 256, 
-    height: 256,                       
-    antialiasing: true, 
-    transparent: false, 
-    resolution: 1
-  }
-);
-
-//Add the canvas that Pixi automatically created for you to the HTML document
-document.body.appendChild(app.view);
-
-//Circle
-let circle = new Graphics();
-circle.beginFill(0x9966FF);
-circle.drawCircle(0, 0, 32);
-circle.endFill();
-circle.x = 64;
-circle.y = 130;
-app.stage.addChild(circle);
-
-//Rectangle
-let rectangle = new Graphics();
-rectangle.lineStyle(4, 0xFF3300, 1);
-rectangle.beginFill(0x66CCFF);
-rectangle.drawRect(0, 0, 64, 64);
-rectangle.endFill();
-rectangle.x = 170;
-rectangle.y = 170;
-app.stage.addChild(rectangle);
-
-//Line
-let line = new Graphics();
-line.lineStyle(4, 0x00FFFF, 1);
-line.moveTo(0, 0);
-line.lineTo(80, 50);
-line.x = 32;
-line.y = 32;
-app.stage.addChild(line);
-
-//Ellipse
-let ellipse = new Graphics();
-ellipse.beginFill(0xFFFF00);
-ellipse.drawEllipse(0, 0, 50, 20);
-ellipse.endFill();
-ellipse.x = 180;
-ellipse.y = 130;
-app.stage.addChild(ellipse);
-
-//Triangle
-let triangle = new Graphics();
-triangle.beginFill(0x00FF33);
-
-//Use `drawPolygon` to define the triangle as an
-//array of x/y positions
-
-triangle.drawPolygon([
-    -32, 64,             //First point
-    32, 64,              //Second point
-    0, 0                 //Third point 
-]);
-
-triangle.endFill();
-
-//Position the triangle after you've drawn it.
-//The triangle's x/y position is anchored to its first point in the path
-triangle.x = 180;
-triangle.y = 22;
-
-app.stage.addChild(triangle);
-
-//Rounded rectangle
-let roundBox = new Graphics();
-roundBox.lineStyle(4, 0x99CCFF, 1);
-roundBox.beginFill(0xFF0033);
-roundBox.drawRoundedRect(0, 0, 84, 36, 10)
-roundBox.endFill();
-roundBox.x = 48;
-roundBox.y = 190;
-app.stage.addChild(roundBox);
+app.ticker.add(() => {
+    // just for fun, let's rotate mr rabbit a little
+    dude.rotation += 0.1;
+});
