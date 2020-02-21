@@ -11,7 +11,13 @@ const baseSpeed = 0.025;
 let speed = 0;
 let warpSpeed = 0;
 const starStretch = 5;
-const starBaseSize = 0.05;
+const starBaseSize = 0.08;
+
+//React on mouse
+app.stage.interactive = true;
+app.stage.on('mousedown', () => {
+    warpSpeed = warpSpeed > 0 ? 0 : 1;
+})
 
 // Create the stars
 const stars = [];
@@ -39,15 +45,11 @@ function randomizeStar(star, initial) {
     star.y = Math.sin(deg) * distance;
 }
 
-// Change flight speed every 5 seconds
-setInterval(() => {
-    warpSpeed = warpSpeed > 0 ? 0 : 1;
-}, 5000);
-
 // Listen for animate update
 app.ticker.add((delta) => {
     // Simple easing. This should be changed to proper easing function when used for real.
     speed += (warpSpeed - speed) / 20;
+    console.log(warpSpeed);
     cameraZ += delta * 10 * (speed + baseSpeed);
     for (let i = 0; i < starAmount; i++) {
         const star = stars[i];
