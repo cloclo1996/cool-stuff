@@ -57,12 +57,10 @@ function setup() {
     //If the left arrow has been released, and the right arrow isn't down,
     //and the cat isn't moving vertically:
     //Stop the cat
-    //if (!right.isDown && cat.vy === 0) {
     if(right.isDown)
         cat.vx = 5;
     else  
         cat.vx = 0;
-    //}
   };
 
   //Up
