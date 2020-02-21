@@ -49,7 +49,6 @@ function randomizeStar(star, initial) {
 app.ticker.add((delta) => {
     // Simple easing. This should be changed to proper easing function when used for real.
     speed += (warpSpeed - speed) / 20;
-    console.log(warpSpeed);
     cameraZ += delta * 10 * (speed + baseSpeed);
     for (let i = 0; i < starAmount; i++) {
         const star = stars[i];
