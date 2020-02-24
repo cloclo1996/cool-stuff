@@ -7,17 +7,13 @@
   <script src="pixi.min.js"></script>
 <body>
   <script type="text/javascript">
-    let type = "WebGL"
-    console.log('foo', PIXI);
-    if(!PIXI.utils.isWebGLSupported()){
-      type = "canvas"
-    }
-    const app = new PIXI.Application();
+    
+const app = new PIXI.Application();
 document.body.appendChild(app.view);
 
 let count = 1;
 
-// Making the strin
+// Build a rope! ( the length of the "snake")
 const ropeLength = 900/ 40;
 
 const points = [];
