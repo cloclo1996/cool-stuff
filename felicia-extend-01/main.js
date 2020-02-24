@@ -35,12 +35,6 @@ dude.on('pointertap', () => {
     }
 });
 
-app.ticker.add(() => {
-    // just for fun, let's rotate mr rabbit a little
-    dude.rotation += 0.1;
-});
-
-//background
 
 // Get the texture for rope.
 const starTexture = PIXI.Texture.from('../examples-gh/examples/assets/star.png');
@@ -89,6 +83,9 @@ setInterval(() => {
 // Listen for animate update
 app.ticker.add((delta) => {
     // Simple easing. This should be changed to proper easing function when used for real.
+    dude.rotation += 0.1;
+
+
     speed += (warpSpeed - speed) / 20;
     cameraZ += delta * 10 * (speed + baseSpeed);
     for (let i = 0; i < starAmount; i++) {
