@@ -13,8 +13,10 @@ let warpSpeed = 0;
 const starStretch = 5;
 const starBaseSize = 0.08;
 
-//React on mouse
+//Making the screen interactive
 app.stage.interactive = true;
+
+//Setting listeners for click
 app.stage.on('mousedown', () => {
     warpSpeed = warpSpeed > 0 ? 0 : 1;
 })
@@ -44,6 +46,11 @@ function randomizeStar(star, initial) {
     star.x = Math.cos(deg) * distance;
     star.y = Math.sin(deg) * distance;
 }
+
+/* //Change flight speed every 5 seconds
+setInterval(() => {
+    warpSpeed = warpSpeed > 0 ? 0 : 1;
+}, 5000); */
 
 // Listen for animate update
 app.ticker.add((delta) => {
