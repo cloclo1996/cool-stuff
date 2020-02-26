@@ -47,7 +47,7 @@ function randomizeStar(star, initial) {
     star.y = Math.sin(deg) * distance;
 }
 
-/* //Change flight speed every 5 seconds
+/* //The warp speed was interval based from the beginning //Change flight speed every 5 seconds
 setInterval(() => {
     warpSpeed = warpSpeed > 0 ? 0 : 1;
 }, 5000); */
