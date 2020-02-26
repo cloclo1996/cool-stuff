@@ -19,7 +19,7 @@ app.stage.interactive = true;
 //Setting listeners for click
 app.stage.on('mousedown', () => {
     warpSpeed = warpSpeed > 0 ? 0 : 1;
-})
+});
 
 // Create the stars
 const stars = [];
