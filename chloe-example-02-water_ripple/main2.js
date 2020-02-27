@@ -14,8 +14,6 @@ app.stage.interactive = true;
 //Load images
 PIXI.loader.add("../images/ripple.png").add("../images/water.jpg").load(setup);
 
-
-
 function setup() {
     mouseX = app.renderer.width / 2;
     mouseY = app.renderer.height / 2;
