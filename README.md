@@ -13,6 +13,26 @@ Credits to Mat Groves and the PixiJS team, https://www.pixijs.com
 
 
 
+
+
+
+
+•	A general README.md Explaining the project:
+The purpose of this project was to explore an API library. What can be done with it and what can we as interaction designers use it for. At the end we were to present this to the class and talk about our findings.
+
+
+•	What the project does Describe your project
+This project has been about exploring PixiJS and more specifically, how to use movement and velocity with PixiJS. We wanted to see how we could use movement and velocity as a prototyping tool. We came up with these examples, which can be tested in various ways to see how movement and velocity would change the parameters of an artifact
+
+
+•	Why the project is useful What is the project is exploring (remember you are prototyping)
+When extending these examples we were thinking of testing these in a “loading screen” environment, or when a request is pending. This is to see how the users behaviour towards a loading screen might or might not change with interactive movement on the screen.
+
+
+•	How users can get started with the project How to use your code
+
+
+
 # General README
 
 ## How to get going
