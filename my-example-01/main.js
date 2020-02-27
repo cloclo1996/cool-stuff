@@ -16,7 +16,7 @@ const dude = new PIXI.Sprite(firstTexture);
 
 
 // center the sprites anchor point
-dude.anchor.set(0.5);
+dude.anchor.set(2.5);
 
 // move the sprite to the center of the screen
 dude.x = app.screen.width / 3;
