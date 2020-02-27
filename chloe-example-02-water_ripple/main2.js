@@ -89,7 +89,7 @@ function loop() {
 
     } else {
         requestAnimationFrame(loop);
-            //Ripple grows
+        //Ripple grows
         displacementSprite.scale.x += 0.25;
         displacementFilter.scale.x += 0.25;
         displacementSprite.scale.y += 0.25;
