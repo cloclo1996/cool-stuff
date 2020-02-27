@@ -46,20 +46,26 @@ function setup() {
     //Event handlers
     app.stage.on('mouseup', onPointerUp) .on('mousedown', onPointerDown);
 
-    //call the loop function to start the animation
+    //Call the loop function to start the animation
     loop();
 }
 
 function onPointerUp(eventData) {
+    //Makes the ripple visible
     displacementSprite.visible = true;
     displacementFilter.visible = true;
+
+    //Place the ripple on the pointer
     mouseX = eventData.data.global.x;
     mouseY = eventData.data.global.y;
+
+    //Add it to the stage
     app.stage.addChild(displacementSprite);
     container.filters = [displacementFilter];
 }
 
 function onPointerDown(){
+    //Resets animation
     app.stage.removeChild(displacementSprite);
     displacementSprite.x = 0;
     displacementSprite.y = 0;
@@ -75,6 +81,8 @@ function loop() {
     vy += (mouseY - displacementSprite.y);
     displacementSprite.x = vx;
     displacementSprite.y = vy;
+    
+    //Ripple continually grows
     displacementSprite.scale.x += 0.25;
     displacementFilter.scale.x += 0.25;
     displacementSprite.scale.y += 0.25;
