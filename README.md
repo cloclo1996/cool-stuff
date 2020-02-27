@@ -6,6 +6,12 @@ When extending these examples we were thinking of testing these in a “loading 
 
 This project is useful for prototyping purposes. 
 
+Credits to Mat Groves and the PixiJS team, https://www.pixijs.com
+
+
+
+
+
 
 # General README
 
@@ -33,10 +39,4 @@ If pixi is linked correctly something similar to this will be shown in the conso
 
     
 
-
-
-
-
 Credits to Mat Groves and the PixiJS team, https://www.pixijs.com
-
-
