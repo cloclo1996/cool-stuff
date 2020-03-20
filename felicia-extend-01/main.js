@@ -78,7 +78,7 @@ function randomizeStar(star, initial) {
 // Change flight speed every 5 seconds
 setInterval(() => {
     warpSpeed = warpSpeed > 0 ? 0 : 1;
-}, 5000);
+}, 2000);
 
 // Listen for animate update
 app.ticker.add((delta) => {
