@@ -12,7 +12,7 @@ app.stage.addChild(container);
 app.stage.interactive = true;
 
 //Load images
-PIXI.loader.add("../images/ripple.png").add("../images/water.png").load(setup);
+PIXI.loader.add("../images/ripple.png").add("../images/water.jpg").load(setup);
 
 function setup() {
     mouseX = app.renderer.width / 2;
@@ -24,19 +24,16 @@ function setup() {
     //Turn Sprite into a diplacement filter
     displacementFilter = new PIXI.filters.DisplacementFilter(displacementSprite);
 
-    //Avoids the displacement filter from appearing right away when the screen loads
-    displacementSprite.visible = false;
-    displacementFilter.visible = false;
+    console.log(displacementSprite);
 
+    //Placing the sprite on the canvas. Otherwise it doesn't show up on the screen
     displacementSprite.anchor.set(0.5);
-    displacementSprite.x = app.renderer.width / 2;
-    displacementSprite.y = app.renderer.height / 2;
 
     vx = displacementSprite.x;
     vy = displacementSprite.y;
 
     //Create a background
-    background = new PIXI.Sprite(PIXI.loader.resources["../images/water.png"].texture);
+    background = new PIXI.Sprite(PIXI.loader.resources["../images/water.jpg"].texture);
     background.width = app.renderer.width;
     background.height = app.renderer.height;
 
@@ -46,37 +43,56 @@ function setup() {
     //Event handlers
     app.stage.on('mouseup', onPointerUp) .on('mousedown', onPointerDown);
 
-    //call the loop function to start the animation
+    //Call the loop function to start the animation
     loop();
 }
 
 function onPointerUp(eventData) {
-    displacementSprite.visible = true;
-    displacementFilter.visible = true;
+    //Place the ripple on the pointer
     mouseX = eventData.data.global.x;
     mouseY = eventData.data.global.y;
-    app.stage.addChild(displacementSprite);
+    
+    //When the sprite is added here, it will only appear when the event is triggered.
+    container.addChild(displacementSprite);
     container.filters = [displacementFilter];
 }
 
 function onPointerDown(){
-    app.stage.removeChild(displacementSprite);
+    //reset ripple
     displacementSprite.x = 0;
     displacementSprite.y = 0;
     displacementSprite.scale.x = 0;
     displacementFilter.scale.x = 0;
     displacementSprite.scale.y = 0;
     displacementFilter.scale.y = 0;
+    container.removeChild(displacementSprite);
+    container.filters = null;
 }
 
 function loop() {
-    requestAnimationFrame(loop);
     vx += (mouseX - displacementSprite.x);
     vy += (mouseY - displacementSprite.y);
     displacementSprite.x = vx;
     displacementSprite.y = vy;
-    displacementSprite.scale.x += 0.25;
-    displacementFilter.scale.x += 0.25;
-    displacementSprite.scale.y += 0.25;
-    displacementFilter.scale.y += 0.25;
+
+    if(displacementSprite.scale.x === 20){
+        //reset ripple
+        onPointerDown();
+
+        //reset background
+        setup();
+
+        container.removeChild(displacementSprite);
+        container.filters = null;
+
+        cancelAnimationFrame(loop);
+
+    } else {
+        requestAnimationFrame(loop);
+        //Ripple grows
+        displacementSprite.scale.x += 0.25;
+        displacementFilter.scale.x += 0.25;
+        displacementSprite.scale.y += 0.25;
+        displacementFilter.scale.y += 0.25;
+    }
 }

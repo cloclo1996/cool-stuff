@@ -4,6 +4,7 @@ document.body.appendChild(app.view);
 // Get the texture for rope.
 const starTexture = PIXI.Texture.from('../examples-gh/examples/assets/star.png');
 
+//Variables
 const starAmount = 1000;
 let cameraZ = 0;
 const fov = 20;
@@ -13,11 +14,13 @@ let warpSpeed = 0;
 const starStretch = 5;
 const starBaseSize = 0.08;
 
-//React on mouse
+//Making the screen interactive
 app.stage.interactive = true;
+
+//Setting listeners for click
 app.stage.on('mousedown', () => {
     warpSpeed = warpSpeed > 0 ? 0 : 1;
-})
+});
 
 // Create the stars
 const stars = [];
@@ -44,6 +47,11 @@ function randomizeStar(star, initial) {
     star.x = Math.cos(deg) * distance;
     star.y = Math.sin(deg) * distance;
 }
+
+/* //The warp speed was interval based from the beginning //Change flight speed every 5 seconds
+setInterval(() => {
+    warpSpeed = warpSpeed > 0 ? 0 : 1;
+}, 5000); */
 
 // Listen for animate update
 app.ticker.add((delta) => {
